@@ -23,10 +23,12 @@
     combos {
         compatible = "zmk,combos";
 
+        // bottom four keys from left to right: 30 31 32 33 
+        // 32 33 FUN_L function keys
         med_mo {
             timeout-ms = <50>;
             key-positions = <32 33>;
-            bindings = <&mo MED_L>;
+            bindings = <&mo FUN_L>;
         };
 
         nav_mo {
@@ -38,7 +40,7 @@
         fn_mo {
             timeout-ms = <50>;
             key-positions = <30 33>;
-            bindings = <&mo FUN_L>;
+            bindings = <&mo MED_L>;
         };
         
         oth_mo {
@@ -86,12 +88,12 @@
         combo_sqt {
             timeout-ms = <50>;
             key-positions = <16 19>; // J, ;
-            bindings = <&kp SQT>;
+            bindings = <&kp RBRC>;   // }
         };
         combo_grv {
             timeout-ms = <50>;
             key-positions = <10 13>; // A, F
-            bindings = <&kp GRAVE>;
+            bindings = <&kp LBRC>;   // {
         };
         combo_mns {
             timeout-ms = <50>;
@@ -117,6 +119,28 @@
                 = <&macro_tap &kp MINUS &kp GT >
                 ;
         };
+        noteq: noteq{
+            label = "Not Equal";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings
+                = <&macro_tap &kp EXCL &kp EQUAL >
+                ;
+        };
+        brcscp: brcscp{
+            label = "Brace Scope";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings
+                = <&macro_tap &kp LBRC &kp RBRC &kp LARW &kp ENTER >
+                ;
+        };
+        
+
     };
 
     behaviors {
@@ -141,7 +165,7 @@
                 &kp Q       &kp W  &kp E   &kp R       &kp T              &kp Y            &kp U       &kp I      &kp O      &kp P
                 &kp A       &kp S  &kp D   &kp F       &hm LCTRL G        &hm RCTRL H      &kp J       &kp K      &kp L      &kp SEMI
                 &hm LSHFT Z &kp X  &kp C   &hm LGUI V  &hm LALT B         &hm RALT N       &hm RGUI M  &kp COMMA  &kp DOT    &hm RSHFT FSLH
-                                                  &mo SYM_L &kp SPACE     &kp RET  &mo NUM_L
+                                                  &mo NUM_L &kp SPACE     &kp RET  &mo SYM_L
             >;
         };
 
@@ -150,20 +174,20 @@
         num_layer {
             label = "Num";
             bindings = <
-                &none   &none     &kp LARW    &kp RARW   &none     &none    &kp UARW    &kp DARW    &none   &none
-                &kp N1   &kp N2     &kp N3      &kp N4     &kp N5        &kp N6       &kp N7      &kp N8      &kp N9     &kp N0
-                &none &none   &none    &none  &none      &none    &none    &trans      &trans     &none
-                                                  &none    &trans         &trans    &none
+                    &kp PG_UP   &none      &kp   UARW &none      &kp   HOME       &kp PLUS  &np N7 &kp N8 &kp N9 &kp   UNDER
+                    &kp PG_DOWN &kp   LARW &kp   DARW &kp   RARW &kp   END        &kp EQUAL &kp N4 &kp N5 &kp N6 &kp   N0
+                    &kp CAPS    &none      &none      &none      &none            &kp MINUS &kp N1 &kp N2 &kp N3 &kp   DOT
+                                                  &none    &trans                 &trans    &none
             >;
         };
 
         sym_layer {
             label = "Sym";
             bindings = <
-                &pntr    &none  &none    &none    &none           &none  &none  &none    &none    &kp DEL
-                &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT       &kp CARET  &kp AMPS &kp STAR &kp BSLH &kp PIPE
-                &none    &none  &none    &none    &none           &none     &none    &none    &none    &none
-                                               &none  &trans       &trans  &none
+                &kp GRAVE &kp AMPS &kp STAR  &kp PIPE  &kp TILDE       &none  &brcscp  &none   &none  &none
+                &kp DQT   &kp DLLR &kp PRCNT &kp CARET &kp BSLH        &none  &pntr    &noteq  &none  &none
+                &kp SQT   &kp EXCL &kp AT    &kp HASH  &kp EQUAL       &none  &none    &none   &none  &none
+                                               &none  &trans           &trans  &none
             >;
         };
 

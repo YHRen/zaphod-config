@@ -171,9 +171,9 @@
         num_layer {
             label = "Num";
             bindings = <
-                    &kp PG_UP   &none      &kp   UARW &none      &kp   HOME       &kp PLUS  &kp N7 &kp N8 &kp N9 &kp UNDER
-                    &kp PG_DN   &kp   LARW &kp   DARW &kp   RARW &kp   END        &kp EQUAL &kp N4 &kp N5 &kp N6 &kp N0
-                    &kp CAPS    &none      &none      &none      &none            &kp MINUS &kp N1 &kp N2 &kp N3 &kp DOT
+                    &kp PG_UP   &none      &kp   UARW &none      &kp   HOME       &kp PLUS  &kp N7 &kp N8 &kp N9 &kp STAR
+                    &kp PG_DN   &kp   LARW &kp   DARW &kp   RARW &kp   END        &kp MINUS &kp N4 &kp N5 &kp N6 &kp N0
+                    &kp CAPS    &none      &none      &none      &none            &kp EQUAL &kp N1 &kp N2 &kp N3 &kp  FSLH
                                                   &none    &trans                 &trans    &none
             >;
         };
@@ -183,7 +183,7 @@
             bindings = <
                 &kp GRAVE &kp AMPS &kp STAR  &kp PIPE  &kp TILDE       &none  &brcscp  &none   &none  &none
                 &kp DQT   &kp DLLR &kp PRCNT &kp CARET &kp BSLH        &none  &pntr    &noteq  &none  &none
-                &kp SQT   &kp EXCL &kp AT    &kp HASH  &kp EQUAL       &none  &none    &none   &none  &none
+                &kp SQT   &kp EXCL &kp AT    &kp HASH  &kp UNDER       &none  &none    &none   &none  &none
                                                &none  &trans           &trans  &none
             >;
         };

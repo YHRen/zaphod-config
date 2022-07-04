@@ -172,7 +172,7 @@
             label = "Num";
             bindings = <
                     &kp PG_UP   &none      &kp   UARW &none      &kp   HOME       &kp PLUS  &kp N7 &kp N8 &kp N9 &kp UNDER
-                    &kp PG_DOWN &kp   LARW &kp   DARW &kp   RARW &kp   END        &kp EQUAL &kp N4 &kp N5 &kp N6 &kp N0
+                    &kp PG_DN   &kp   LARW &kp   DARW &kp   RARW &kp   END        &kp EQUAL &kp N4 &kp N5 &kp N6 &kp N0
                     &kp CAPS    &none      &none      &none      &none            &kp MINUS &kp N1 &kp N2 &kp N3 &kp DOT
                                                   &none    &trans                 &trans    &none
             >;

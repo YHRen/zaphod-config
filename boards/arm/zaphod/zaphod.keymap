@@ -23,8 +23,6 @@
     combos {
         compatible = "zmk,combos";
 
-        // bottom four keys from left to right: 30 31 32 33 
-        // 32 33 FUN_L function keys
         med_mo {
             timeout-ms = <50>;
             key-positions = <32 33>;

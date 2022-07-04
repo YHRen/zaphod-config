@@ -134,7 +134,7 @@
             wait-ms = <40>;
             tap-ms = <40>;
             bindings
-                = <&macro_tap &kp LBRC &kp RBRC &kp LARW>
+                = <&macro_tap &kp LBRC &kp RBRC &kp LARW &kp ENTER>
                 , <&macro_press &kp LALT &kp LSHIFT>
                 , <&macro_tap &kp O>
                 , <&macro_release &kp LALT &kp LSHIFT>

@@ -228,6 +228,7 @@
             bindings = <&kp>, <&kp>;
         };
     };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -240,8 +241,6 @@
                                                   &mo NUM_L &kp SPACE     &kp RET  &mo SYM_L
             >;
         };
-
-        //&lt NUM_L TAB  &lt OTH_L SPACE &lt NAV_L RET  &lt SYM_L BKSP
 
         num_layer {
             label = "Num";

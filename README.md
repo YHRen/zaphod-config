@@ -1,6 +1,18 @@
-# keymap
+# Zaphod keymap
 
-Zaphod Keyboard is a 34-key keyboard.
+Zaphod is a 34-key keyboard configuration for [ZMK v0.3](https://zmk.dev/).
+
+## Firmware builds
+
+GitHub Actions builds three firmware variants from [`build.yaml`](build.yaml):
+
+- `zaphod`
+- `zaphod_lite` for `seeeduino_xiao`
+- `zaphod_lite` for `seeeduino_xiao_ble`
+
+Download the generated UF2 files from the `firmware` artifact attached to a
+successful workflow run. The ZMK version is pinned in
+[`config/west.yml`](config/west.yml).
 
 | L   |     |     |     |     |      |     |     |     |     | R   |
 | :-- | :-- | :-- | :-- | :-- | :--: | --: | --: | --: | --: | --: |

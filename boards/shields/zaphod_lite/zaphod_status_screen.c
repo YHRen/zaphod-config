@@ -4,9 +4,10 @@
  * SPDX-License-Identifier: MIT
  */
 
+#include <stdio.h>
+
 #include <zmk/display/widgets/output_status.h>
 #include <zmk/display/widgets/battery_status.h>
-#include <zmk/display/widgets/layer_status.h>
 #include <zmk/display/widgets/wpm_status.h>
 #include <zmk/display/status_screen.h>
 #include <zmk/display.h>
@@ -14,6 +15,8 @@
 #include <zmk/event_manager.h>
 #include <zmk/events/ble_active_profile_changed.h>
 #include <zmk/events/endpoint_changed.h>
+#include <zmk/events/layer_state_changed.h>
+#include <zmk/keymap.h>
 
 #include <zephyr/logging/log.h>
 #include <zephyr/sys/util.h>
@@ -70,13 +73,40 @@ static struct zmk_widget_battery_status battery_status_widget;
 static struct zmk_widget_output_status output_status_widget;
 #endif
 
-#if IS_ENABLED(CONFIG_ZMK_WIDGET_LAYER_STATUS)
-static struct zmk_widget_layer_status layer_status_widget;
-#endif
-
 #if IS_ENABLED(CONFIG_ZMK_WIDGET_WPM_STATUS)
 static struct zmk_widget_wpm_status wpm_status_widget;
 #endif
+
+static lv_obj_t *layer_name_label;
+
+struct layer_name_status_state {
+    zmk_keymap_layer_index_t index;
+    const char *name;
+};
+
+static struct layer_name_status_state layer_name_status_get_state(const zmk_event_t *_eh) {
+    zmk_keymap_layer_index_t index = zmk_keymap_highest_layer_active();
+
+    return (struct layer_name_status_state){
+        .index = index,
+        .name = zmk_keymap_layer_name(zmk_keymap_layer_index_to_id(index)),
+    };
+}
+
+static void layer_name_status_update_cb(struct layer_name_status_state state) {
+    if (state.name != NULL && state.name[0] != '\0') {
+        lv_label_set_text(layer_name_label, state.name);
+        return;
+    }
+
+    char text[4];
+    snprintf(text, sizeof(text), "%d", state.index);
+    lv_label_set_text(layer_name_label, text);
+}
+
+ZMK_DISPLAY_WIDGET_LISTENER(layer_name_status, struct layer_name_status_state,
+                            layer_name_status_update_cb, layer_name_status_get_state)
+ZMK_SUBSCRIPTION(layer_name_status, zmk_layer_state_changed);
 
 lv_style_t global_style;
 
@@ -131,11 +161,9 @@ lv_obj_t *zmk_display_status_screen() {
     lv_obj_set_size(center_frame, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
     lv_obj_align(center_frame, LV_ALIGN_CENTER, 0, 21);
 
-#if IS_ENABLED(CONFIG_ZMK_WIDGET_LAYER_STATUS)
-    zmk_widget_layer_status_init(&layer_status_widget, screen);
-    lv_obj_align(zmk_widget_layer_status_obj(&layer_status_widget), LV_ALIGN_BOTTOM_LEFT,
-                 0, 0);
-#endif
+    layer_name_label = lv_label_create(screen);
+    layer_name_status_init();
+    lv_obj_align(layer_name_label, LV_ALIGN_BOTTOM_LEFT, 0, 0);
 
 #if IS_ENABLED(CONFIG_ZMK_WIDGET_WPM_STATUS)
     zmk_widget_wpm_status_init(&wpm_status_widget, screen);

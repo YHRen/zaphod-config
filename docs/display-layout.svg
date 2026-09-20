@@ -25,7 +25,7 @@
           fill="#7d4e00">( o.o )  animated cat</text>
 
     <rect x="1" y="139" width="142" height="29" fill="#ffebe9"/>
-    <text x="7" y="158" font-family="sans-serif" font-size="9" fill="#cf222e">Layer</text>
+    <text x="7" y="158" font-family="sans-serif" font-size="9" fill="#cf222e">Base</text>
     <text x="137" y="158" text-anchor="end" font-family="sans-serif" font-size="9"
           fill="#cf222e">WPM</text>
 

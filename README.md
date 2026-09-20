@@ -16,9 +16,9 @@ To build the original Zaphod firmware locally with Docker:
 ./build-local.sh
 ```
 
-The generated firmware is written to
-`~/.cache/zaphod-zmk/build/zaphod/zephyr/zmk.uf2`. The first build downloads
-the ZMK toolchain and dependencies; later builds reuse the cached workspace.
+The generated firmware is copied to `~/Downloads/zaphod-zmk.uf2`. The first
+build downloads the ZMK toolchain and dependencies; later builds reuse the
+cached workspace. Set `ZAPHOD_FIRMWARE_OUTPUT` to use a different destination.
 
 ## Display
 

@@ -45,11 +45,15 @@ docker run --rm \
     '
 
 firmware="${build_root}/build/zaphod/zephyr/zmk.uf2"
+output="${ZAPHOD_FIRMWARE_OUTPUT:-${HOME}/Downloads/zaphod-zmk.uf2}"
 
 if [[ ! -f "${firmware}" ]]; then
     echo "Error: build completed without producing ${firmware}." >&2
     exit 1
 fi
 
+mkdir -p "$(dirname -- "${output}")"
+cp "${firmware}" "${output}"
+
 echo
-echo "Firmware ready: ${firmware}"
+echo "Firmware ready: ${output}"

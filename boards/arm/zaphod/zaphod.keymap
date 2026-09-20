@@ -17,7 +17,7 @@
 #define FUN_L 6
 
 // Using layer taps on thumbs, having quick tap as well helps w/ repeating space/backspace
-&lt { quick_tap_ms = <200>; };
+&lt { quick-tap-ms = <200>; };
 
 / {
     combos {
@@ -108,7 +108,6 @@
 
     macros {
         pntr: pntr{
-            label = "Pointer";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>;
@@ -118,7 +117,6 @@
                 ;
         };
         noteq: noteq{
-            label = "Not Equal";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>;
@@ -128,7 +126,6 @@
                 ;
         };
         endl: endl{
-            label = "Cpp End Line";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>;
@@ -138,7 +135,6 @@
                 ;
         };
         dgt: dgt{
-            label = "Double Greater Than";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>;
@@ -148,7 +144,6 @@
                 ;
         };
         dlt: dlt{
-            label = "Double Less Than";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>;
@@ -158,7 +153,6 @@
                 ;
         };
         brcscp: brcscp{
-            label = "Brace Scope";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>;
@@ -171,7 +165,6 @@
                 ;
         };
         dbrkt: dbrkt{
-            label = "Bracket Scope []";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>;
@@ -181,7 +174,6 @@
                 ;
         };
         dpar: dpar{
-            label = "Parenthesis Scope ()";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>;
@@ -191,7 +183,6 @@
                 ;
         };
         chara: chara{
-            label = "singal quoted char a";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>;
@@ -201,7 +192,6 @@
                 ;
         };
         emjsmile: emjsmile{
-            label = "Smile Emoji";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <10>;
@@ -218,13 +208,12 @@
     behaviors {
         hm: homerow_mods {
             compatible = "zmk,behavior-hold-tap";
-            label = "homerow mods";
             #binding-cells = <2>;
             //flavor = "tap-preferred";
             flavor = "balanced";
-            tapping_term_ms = <150>;
+            tapping-term-ms = <150>;
             quick-tap-ms = <125>;
-            global-quick-tap;
+            require-prior-idle-ms = <125>;
             bindings = <&kp>, <&kp>;
         };
     };
@@ -233,7 +222,7 @@
         compatible = "zmk,keymap";
 
         default_layer {
-            label = "Base";
+            display-name = "Base";
             bindings = <
                 &kp Q       &kp W  &kp E   &kp R       &kp T              &kp Y            &kp U       &kp I      &kp O      &kp P
                 &kp A       &kp S  &kp D   &kp F       &hm LCTRL G        &hm RCTRL H      &kp J       &kp K      &kp L      &kp SEMI
@@ -243,7 +232,7 @@
         };
 
         num_layer {
-            label = "Num";
+            display-name = "Num";
             bindings = <
                     &kp PAGE_UP   &none      &kp   UARW &none      &kp   HOME       &kp PLUS  &kp N7 &kp N8 &kp N9 &kp STAR
                     &kp PAGE_DOWN   &kp   LARW &kp   DARW &kp   RARW &kp   END        &kp MINUS &kp N4 &kp N5 &kp N6 &kp N0
@@ -253,7 +242,7 @@
         };
 
         sym_layer {
-            label = "Sym";
+            display-name = "Sym";
             bindings = <
                 &kp GRAVE &kp AMPS &kp STAR  &kp PIPE  &kp TILDE       &emjsmile  &brcscp  &dbrkt   &dpar  &none
                 &kp DQT   &kp DLLR &kp PRCNT &kp CARET &kp BSLH        &chara  &pntr    &noteq  &none  &endl
@@ -263,7 +252,7 @@
         };
 
         nav_layer {
-            label = "Nav";
+            display-name = "Nav";
             bindings = <
                 &trans     &trans     &trans      &trans          &trans       &trans           &trans         &trans      &trans     &trans
                 &trans     &trans     &trans      &kp PSCRN       &trans       &trans           &kp LARW       &kp DARW    &kp UARW   &kp RARW
@@ -273,7 +262,7 @@
         };
 
         other_layer {
-            label = "Other";
+            display-name = "Other";
             bindings = <
                 &trans	   &trans     &trans      &trans          &trans       &trans           &trans         &trans       &trans       &bt BT_CLR
                 &trans     &trans     &trans      &trans          &trans       &trans           &trans         &trans       &trans       &trans
@@ -284,7 +273,7 @@
 
 
         blue_layer {
-            label = "Blue";
+            display-name = "Blue";
             bindings = <
                 &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4           &trans     &trans     &trans       &trans       &bt BT_CLR
                 &bt BT_SEL 5 &bt BT_SEL 6 &bt BT_SEL 7 &bt BT_SEL 8 &bt BT_SEL 9           &trans     &kp C_PREV &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT
@@ -294,7 +283,7 @@
         };
 
         fun_layer {
-            label = "Fun";
+            display-name = "Fun";
             bindings = <
                 &kp F12     &kp F7     &kp F8      &kp F9     &kp PSCRN         &trans          &trans         &trans      &trans     &trans
                 &kp F11     &kp F4     &kp F5      &kp F6     &kp SLCK          &trans          &trans         &trans      &trans     &trans
@@ -304,4 +293,3 @@
         };
     };
 };
-

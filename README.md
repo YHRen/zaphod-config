@@ -14,6 +14,23 @@ Download the generated UF2 files from the `firmware` artifact attached to a
 successful workflow run. The ZMK version is pinned in
 [`config/west.yml`](config/west.yml).
 
+To build the original Zaphod firmware locally with Docker:
+
+```sh
+./build-local.sh
+```
+
+The generated firmware is written to
+`~/.cache/zaphod-zmk/build/zaphod/zephyr/zmk.uf2`. The first build downloads
+the ZMK toolchain and dependencies; later builds reuse the cached workspace.
+
+## Display
+
+The 144×168 display uses evenly distributed status, hostname, animation, and
+layer-information rows.
+
+![Zaphod display layout](docs/display-layout.svg)
+
 | L   |     |     |     |     |      |     |     |     |     | R   |
 | :-- | :-- | :-- | :-- | :-- | :--: | --: | --: | --: | --: | --: |
 | K00 | K01 | K02 | K03 | K04 |      | K05 | K06 | K07 | K08 | K09 |
@@ -66,12 +83,16 @@ TODO: to expand.
 Hold ` ` and `↵` to activate.
 Select which bluetooth device to connect.
 
-| L   |     |     |     |     |      |     |     |     |     | R   |
-| :-- | :-- | :-- | :-- | :-- | :--: | --: | --: | --: | --: | --: |
-| B0  | B1  | B2  | B3  | B4  |      |     |     |     |     |     |
-|     |     |     |     |     |      |     |     |     |     |     |
-|     |     |     |     |     |      |     |     |     |     |     |
-| -   | -   | -   |     |     |      |     |     | -   | -   | -   |
+The display shows the hostname assigned to the selected output. Bluetooth
+profile names are configurable through `CONFIG_ZAPHOD_HOSTNAME_0` through
+`CONFIG_ZAPHOD_HOSTNAME_4`; their defaults are shown below.
+
+| L          |          |          |        |          |      |     |     |     |     | R   |
+| :--------- | :------- | :------- | :----- | :------- | :--: | --: | --: | --: | --: | --: |
+| B0         | B1       | B2       | B3     | B4       |      |     |     |     |     |     |
+| `macbook`  | `iphone` | `android` | `PC`   | `TV-box` |      |     |     |     |     |     |
+|            |          |          |        |          |      |     |     |     |     |     |
+| -          | -        | -        |        |          |      |     |     | -   | -   | -   |
 
 
 ### L6: Function Key Layer

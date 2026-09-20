@@ -8,6 +8,26 @@ config BOARD_ENABLE_DCDC
 
 if ZMK_DISPLAY
 
+config ZAPHOD_HOSTNAME_0
+    string "Hostname for Bluetooth profile 0"
+    default "macbook"
+
+config ZAPHOD_HOSTNAME_1
+    string "Hostname for Bluetooth profile 1"
+    default "iphone"
+
+config ZAPHOD_HOSTNAME_2
+    string "Hostname for Bluetooth profile 2"
+    default "android"
+
+config ZAPHOD_HOSTNAME_3
+    string "Hostname for Bluetooth profile 3"
+    default "PC"
+
+config ZAPHOD_HOSTNAME_4
+    string "Hostname for Bluetooth profile 4"
+    default "TV-box"
+
 menuconfig ZAPHOD_BONGO_CAT
     bool "Show WPM bongo cat"
     select ZMK_WPM

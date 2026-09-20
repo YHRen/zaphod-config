@@ -9,9 +9,51 @@
 #include <zmk/display/widgets/layer_status.h>
 #include <zmk/display/widgets/wpm_status.h>
 #include <zmk/display/status_screen.h>
+#include <zmk/display.h>
+#include <zmk/endpoints.h>
+#include <zmk/event_manager.h>
+#include <zmk/events/ble_active_profile_changed.h>
+#include <zmk/events/endpoint_changed.h>
 
 #include <zephyr/logging/log.h>
+#include <zephyr/sys/util.h>
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
+
+static lv_obj_t *hostname_label;
+
+static const char *const hostnames[] = {
+    CONFIG_ZAPHOD_HOSTNAME_0,
+    CONFIG_ZAPHOD_HOSTNAME_1,
+    CONFIG_ZAPHOD_HOSTNAME_2,
+    CONFIG_ZAPHOD_HOSTNAME_3,
+    CONFIG_ZAPHOD_HOSTNAME_4,
+};
+
+static struct zmk_endpoint_instance hostname_status_get_state(const zmk_event_t *_eh) {
+    return zmk_endpoints_selected();
+}
+
+static void hostname_status_update_cb(struct zmk_endpoint_instance endpoint) {
+    if (endpoint.transport == ZMK_TRANSPORT_USB) {
+        lv_label_set_text(hostname_label, "USB");
+        return;
+    }
+
+    if (endpoint.ble.profile_index < 0 ||
+        (size_t)endpoint.ble.profile_index >= ARRAY_SIZE(hostnames)) {
+        lv_label_set_text(hostname_label, "Unknown");
+        return;
+    }
+
+    lv_label_set_text(hostname_label, hostnames[endpoint.ble.profile_index]);
+}
+
+ZMK_DISPLAY_WIDGET_LISTENER(hostname_status, struct zmk_endpoint_instance,
+                            hostname_status_update_cb, hostname_status_get_state)
+ZMK_SUBSCRIPTION(hostname_status, zmk_endpoint_changed);
+#if IS_ENABLED(CONFIG_ZMK_BLE)
+ZMK_SUBSCRIPTION(hostname_status, zmk_ble_active_profile_changed);
+#endif
 
 #if IS_ENABLED(CONFIG_ZAPHOD_BONGO_CAT)
 #include "zaphod_bongo_cat_widget.h"
@@ -50,6 +92,8 @@ lv_obj_t *zmk_display_status_screen() {
     lv_style_set_text_font(&global_style, &lv_font_montserrat_26);
     lv_style_set_text_letter_space(&global_style, 1);
     lv_style_set_text_line_space(&global_style, 1);
+    lv_style_set_bg_color(&global_style, lv_color_white());
+    lv_style_set_text_color(&global_style, lv_color_black());
 
     screen = lv_obj_create(NULL);
     lv_obj_add_style(screen, &global_style, LV_PART_MAIN);
@@ -66,9 +110,11 @@ lv_obj_t *zmk_display_status_screen() {
                  0);
 #endif
 
+    hostname_label = lv_label_create(screen);
+    lv_obj_align(hostname_label, LV_ALIGN_TOP_MID, 0, 43);
+    hostname_status_init();
+
     center_frame = lv_obj_create(screen);
-    lv_obj_align(center_frame, LV_ALIGN_CENTER, 0, 0);
-    lv_obj_center(center_frame);
 
 #if IS_ENABLED(CONFIG_ZAPHOD_BONGO_CAT)
     zaphod_bongo_cat_widget_init(&bongo_widget, center_frame);
@@ -83,6 +129,7 @@ lv_obj_t *zmk_display_status_screen() {
     lv_obj_set_y(panic_label, lv_obj_get_height(dont_label));
 #endif // IS_ENABLED(CONFIG_ZAPHOD_BONGO_CAT)
     lv_obj_set_size(center_frame, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    lv_obj_align(center_frame, LV_ALIGN_CENTER, 0, 21);
 
 #if IS_ENABLED(CONFIG_ZMK_WIDGET_LAYER_STATUS)
     zmk_widget_layer_status_init(&layer_status_widget, screen);

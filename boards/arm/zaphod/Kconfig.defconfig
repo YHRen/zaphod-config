@@ -32,6 +32,15 @@ config ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
 
 if ZMK_DISPLAY
 
+config ZMK_WIDGET_BATTERY_STATUS
+	default y
+
+config ZMK_WIDGET_OUTPUT_STATUS
+	default y
+
+config ZMK_WIDGET_WPM_STATUS
+	default y
+
 config LV_Z_MEM_POOL_SIZE
 	default 4096
 

@@ -4,15 +4,28 @@ Zaphod is a 34-key keyboard configuration for [ZMK v0.3](https://zmk.dev/).
 
 ## Firmware builds
 
-GitHub Actions builds three firmware variants from [`build.yaml`](build.yaml):
-
-- `zaphod`
-- `zaphod_lite` for `seeeduino_xiao`
-- `zaphod_lite` for `seeeduino_xiao_ble`
+GitHub Actions builds the `zaphod` firmware from [`build.yaml`](build.yaml).
 
 Download the generated UF2 files from the `firmware` artifact attached to a
 successful workflow run. The ZMK version is pinned in
 [`config/west.yml`](config/west.yml).
+
+To build the original Zaphod firmware locally with Docker:
+
+```sh
+./build-local.sh
+```
+
+The generated firmware is copied to `~/Downloads/zaphod-zmk.uf2`. The first
+build downloads the ZMK toolchain and dependencies; later builds reuse the
+cached workspace. Set `ZAPHOD_FIRMWARE_OUTPUT` to use a different destination.
+
+## Display
+
+The 144×168 display uses evenly distributed status, hostname, animation, and
+layer-information rows.
+
+![Zaphod display layout](docs/display-layout.svg)
 
 | L   |     |     |     |     |      |     |     |     |     | R   |
 | :-- | :-- | :-- | :-- | :-- | :--: | --: | --: | --: | --: | --: |
@@ -66,12 +79,16 @@ TODO: to expand.
 Hold ` ` and `↵` to activate.
 Select which bluetooth device to connect.
 
-| L   |     |     |     |     |      |     |     |     |     | R   |
-| :-- | :-- | :-- | :-- | :-- | :--: | --: | --: | --: | --: | --: |
-| B0  | B1  | B2  | B3  | B4  |      |     |     |     |     |     |
-|     |     |     |     |     |      |     |     |     |     |     |
-|     |     |     |     |     |      |     |     |     |     |     |
-| -   | -   | -   |     |     |      |     |     | -   | -   | -   |
+The display shows the hostname assigned to the selected output. Bluetooth
+profile names are configurable through `CONFIG_ZAPHOD_HOSTNAME_0` through
+`CONFIG_ZAPHOD_HOSTNAME_4`; their defaults are shown below.
+
+| L          |          |          |        |          |      |     |     |     |     | R   |
+| :--------- | :------- | :------- | :----- | :------- | :--: | --: | --: | --: | --: | --: |
+| B0         | B1       | B2       | B3     | B4       |      |     |     |     |     |     |
+| `macbook`  | `iphone` | `android` | `PC`   | `TV-box` |      |     |     |     |     |     |
+|            |          |          |        |          |      |     |     |     |     |     |
+| -          | -        | -        |        |          |      |     |     | -   | -   | -   |
 
 
 ### L6: Function Key Layer

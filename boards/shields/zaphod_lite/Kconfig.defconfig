@@ -13,7 +13,43 @@ config ZMK_DISPLAY
 	select LV_USE_CONT
 	select LV_FONT_MONTSERRAT_26
 
+choice ZMK_DISPLAY_STATUS_SCREEN
+	default ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
+endchoice
+
+config ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
+	select LV_USE_LABEL
+
 if ZMK_DISPLAY
+
+config ZMK_WIDGET_BATTERY_STATUS
+	default y if ZMK_BATTERY_REPORTING
+
+config ZMK_WIDGET_OUTPUT_STATUS
+	default y if ZMK_BLE
+
+config ZMK_WIDGET_WPM_STATUS
+	default y
+
+config ZAPHOD_HOSTNAME_0
+    string "Hostname for Bluetooth profile 0"
+    default "macbook"
+
+config ZAPHOD_HOSTNAME_1
+    string "Hostname for Bluetooth profile 1"
+    default "iphone"
+
+config ZAPHOD_HOSTNAME_2
+    string "Hostname for Bluetooth profile 2"
+    default "android"
+
+config ZAPHOD_HOSTNAME_3
+    string "Hostname for Bluetooth profile 3"
+    default "PC"
+
+config ZAPHOD_HOSTNAME_4
+    string "Hostname for Bluetooth profile 4"
+    default "TV-box"
 
 config SYSTEM_WORKQUEUE_STACK_SIZE
 	default 2048

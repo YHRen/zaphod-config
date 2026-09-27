@@ -32,6 +32,13 @@ from D9, and exposes the pointer over both USB and Bluetooth. See
 [`docs/trackpoint/xiao-wiring.md`](docs/trackpoint/xiao-wiring.md) before
 applying power.
 
+The optional `zaphod_trackpoint` shield combines the keyboard, Sharp display,
+and TrackPoint while keeping the display on its existing SPI pins. GitHub
+Actions publishes it as `zaphod-trackpoint`. It uses three unused adjacent
+Holyiot edge pads for CLOCK, DATA, and RESET; see
+[`docs/trackpoint/zaphod-integration.md`](docs/trackpoint/zaphod-integration.md)
+for the exact wiring and bring-up sequence.
+
 ## Display
 
 The 144×168 display uses evenly distributed status, hostname, animation, and

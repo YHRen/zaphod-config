@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="760" viewBox="0 0 1000 760">
+  <defs>
+    <style>
+      .title { font: 700 30px Arial, sans-serif; fill: #17202a; }
+      .sub { font: 17px Arial, sans-serif; fill: #536270; }
+      .head { font: 700 20px Arial, sans-serif; fill: #17202a; }
+      .label { font: 18px Arial, sans-serif; fill: #17202a; }
+      .small { font: 15px Arial, sans-serif; fill: #536270; }
+      .warn { font: 700 16px Arial, sans-serif; fill: #8a5700; }
+      .board { fill: #e7f4ea; stroke: #235b35; stroke-width: 3; }
+      .pad { fill: #d7b45b; stroke: #725b20; stroke-width: 2; }
+      .line { stroke: #315c80; stroke-width: 2.5; }
+    </style>
+  </defs>
+  <rect width="1000" height="760" fill="#f7f9fb"/>
+  <text x="45" y="55" class="title">13S5561 REV.B connector - candidate map</text>
+  <text x="45" y="88" class="sub">Viewing orientation matches 1000020190.jpg: back side facing viewer, contacts at right</text>
+
+  <rect x="145" y="130" width="500" height="500" rx="18" class="board"/>
+  <text x="190" y="180" class="head">PCB back / trace side</text>
+  <text x="225" y="385" class="sub" transform="rotate(180 395 385)">CPCP G3 94V-0</text>
+
+  <g>
+    <rect x="610" y="190" width="85" height="36" rx="4" class="pad"/>
+    <rect x="610" y="238" width="85" height="36" rx="4" class="pad"/>
+    <rect x="610" y="286" width="85" height="36" rx="4" class="pad"/>
+    <rect x="610" y="334" width="85" height="36" rx="4" class="pad"/>
+    <rect x="610" y="382" width="85" height="36" rx="4" class="pad"/>
+    <rect x="610" y="430" width="85" height="36" rx="4" class="pad"/>
+    <rect x="610" y="478" width="85" height="36" rx="4" class="pad"/>
+    <rect x="610" y="526" width="85" height="36" rx="4" class="pad"/>
+  </g>
+
+  <g class="label">
+    <line x1="695" y1="208" x2="750" y2="208" class="line"/><text x="765" y="215">1 - RESET</text>
+    <line x1="695" y1="256" x2="750" y2="256" class="line"/><text x="765" y="263">2 - VCC (likely 5 V)</text>
+    <line x1="695" y1="304" x2="750" y2="304" class="line"/><text x="765" y="311">3 - PS/2 CLOCK</text>
+    <line x1="695" y1="352" x2="750" y2="352" class="line"/><text x="765" y="359">4 - GND</text>
+    <line x1="695" y1="400" x2="750" y2="400" class="line"/><text x="765" y="407">5 - MB0 / left</text>
+    <line x1="695" y1="448" x2="750" y2="448" class="line"/><text x="765" y="455">6 - MB1 / right</text>
+    <line x1="695" y1="496" x2="750" y2="496" class="line"/><text x="765" y="503">7 - PS/2 DATA</text>
+    <line x1="695" y1="544" x2="750" y2="544" class="line"/><text x="765" y="551">8 - MB2 / middle</text>
+  </g>
+
+  <text x="45" y="680" class="warn">UNVERIFIED: derived from the closely matching T400/LVMV board. Do not apply power from this map.</text>
+  <text x="45" y="712" class="small">Confirm contacts 1, 2, and 4 against the J7 reset network, then measure candidate CLOCK/DATA pull-ups.</text>
+</svg>

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <defs>
+    <style>
+      .title { font: 700 30px Arial, sans-serif; fill: #17202a; }
+      .subtitle { font: 18px Arial, sans-serif; fill: #4d5b69; }
+      .heading { font: 700 20px Arial, sans-serif; fill: #17202a; }
+      .label { font: 17px Arial, sans-serif; fill: #17202a; }
+      .small { font: 14px Arial, sans-serif; fill: #4d5b69; }
+      .note { font: 16px Arial, sans-serif; fill: #6b4f00; }
+      .box { stroke: #263746; stroke-width: 2; rx: 14; }
+      .signal { fill: none; stroke: #2468a2; stroke-width: 4; }
+      .power5 { fill: none; stroke: #c0392b; stroke-width: 4; }
+      .power3 { fill: none; stroke: #7d3c98; stroke-width: 4; }
+      .ground { fill: none; stroke: #263746; stroke-width: 4; }
+      .component { fill: none; stroke: #263746; stroke-width: 3; }
+    </style>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2468a2"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="760" fill="#f7f9fb"/>
+  <text x="60" y="60" class="title">XIAO nRF52840 to 5 V PS/2 TrackPoint</text>
+  <text x="60" y="91" class="subtitle">Logical USB-powered prototype - confirm the actual salvaged module pinout before power-up</text>
+
+  <rect x="60" y="145" width="285" height="390" class="box" fill="#e8f2fb"/>
+  <text x="88" y="185" class="heading">XIAO nRF52840</text>
+  <text x="88" y="225" class="label">D4 / P0.04 - DATA</text>
+  <text x="88" y="295" class="label">D5 / P0.05 - CLOCK</text>
+  <text x="88" y="390" class="label">3V3</text>
+  <text x="88" y="450" class="label">5V / USB VBUS</text>
+  <text x="88" y="500" class="label">GND</text>
+
+  <rect x="455" y="145" width="290" height="390" class="box" fill="#eef7e8"/>
+  <text x="483" y="185" class="heading">Open-drain level shifter</text>
+  <text x="483" y="216" class="small">Two bidirectional channels</text>
+  <rect x="505" y="245" width="190" height="58" rx="10" fill="#ffffff" stroke="#263746" stroke-width="2"/>
+  <text x="555" y="281" class="label">DATA channel</text>
+  <rect x="505" y="325" width="190" height="58" rx="10" fill="#ffffff" stroke="#263746" stroke-width="2"/>
+  <text x="545" y="361" class="label">CLOCK channel</text>
+  <text x="483" y="420" class="label">LV = 3.3 V</text>
+  <text x="620" y="420" class="label">HV = 5 V</text>
+  <text x="483" y="458" class="small">4.7 kOhm pull-ups on each side</text>
+  <text x="483" y="482" class="small">unless module-side pull-ups are verified</text>
+
+  <rect x="855" y="145" width="285" height="390" class="box" fill="#fceeea"/>
+  <text x="883" y="185" class="heading">Salvaged TrackPoint</text>
+  <text x="883" y="225" class="label">DATA</text>
+  <text x="883" y="295" class="label">CLOCK</text>
+  <text x="883" y="365" class="label">VCC - expected 5 V</text>
+  <text x="883" y="420" class="label">RESET - active high</text>
+  <text x="883" y="500" class="label">GND</text>
+
+  <path d="M345 220 H505" class="signal" marker-end="url(#arrow-blue)"/>
+  <path d="M695 274 H855 V220" class="signal" marker-end="url(#arrow-blue)"/>
+  <path d="M345 290 H470 V354 H505" class="signal" marker-end="url(#arrow-blue)"/>
+  <path d="M695 354 H815 V290 H855" class="signal" marker-end="url(#arrow-blue)"/>
+
+  <path d="M345 385 H455" class="power3"/>
+  <text x="365" y="375" class="small">3.3 V domain</text>
+  <path d="M345 445 H815 V360 H855" class="power5"/>
+  <path d="M745 410 H815" class="power5"/>
+  <text x="713" y="435" class="small">5 V domain</text>
+
+  <path d="M345 495 H855" class="ground"/>
+  <text x="550" y="521" class="small">Common ground</text>
+
+  <rect x="760" y="565" width="380" height="130" rx="12" fill="#fff8df" stroke="#a87d00" stroke-width="2"/>
+  <text x="785" y="596" class="heading">RC power-on reset</text>
+  <text x="790" y="616" class="small">+5 V</text>
+  <path d="M790 625 H860" class="power5"/>
+  <line x1="860" y1="609" x2="860" y2="641" class="component"/>
+  <line x1="874" y1="609" x2="874" y2="641" class="component"/>
+  <path d="M874 625 H940 V580" class="component"/>
+  <text x="843" y="665" class="small">2.2 uF</text>
+  <path d="M940 625 H1085 V435 H855" class="signal" marker-end="url(#arrow-blue)"/>
+  <polyline points="940,625 925,638 955,651 925,664 955,677 940,690" class="component"/>
+  <text x="970" y="670" class="small">100 kOhm</text>
+  <path d="M940 690 V715" class="ground"/>
+  <line x1="920" y1="715" x2="960" y2="715" class="component"/>
+  <line x1="927" y1="724" x2="953" y2="724" class="component"/>
+  <line x1="934" y1="733" x2="946" y2="733" class="component"/>
+  <text x="785" y="687" class="note">Polarized capacitor: positive terminal toward +5 V</text>
+
+  <text x="60" y="590" class="heading">Safety notes</text>
+  <text x="60" y="623" class="note">- Never connect 5 V CLOCK or DATA directly to the XIAO.</text>
+  <text x="60" y="652" class="note">- USB VBUS supplies 5 V only while USB-powered.</text>
+  <text x="60" y="681" class="note">- Leave power off long enough for the reset capacitor to discharge.</text>
+  <text x="60" y="710" class="note">- The final pinout remains unverified until the actual PCB is traced.</text>
+</svg>

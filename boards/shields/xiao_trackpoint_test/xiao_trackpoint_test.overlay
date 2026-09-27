@@ -1,0 +1,76 @@
+/*
+ * Copyright (c) 2026 The Zaphod Contributors
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/nrf-pinctrl.h>
+
+/ {
+    chosen {
+        zmk,kscan = &trackpoint_test_kscan;
+    };
+
+    /* ZMK expects a scanner and keymap, but this standalone pointer has no keys. */
+    trackpoint_test_kscan: trackpoint_test_kscan {
+        compatible = "zmk,kscan-mock";
+        columns = <1>;
+        rows = <1>;
+        events = <>;
+    };
+
+    mouse_ps2: mouse_ps2 {
+        compatible = "zmk,input-mouse-ps2";
+        ps2-device = <&uart_ps2>;
+
+        /* D9 on the XIAO nRF52840 is P1.14. */
+        rst-gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
+
+        /* This first image is movement-only, even if packet button bits change. */
+        disable-clicking;
+    };
+
+    trackpoint_listener: trackpoint_listener {
+        compatible = "zmk,input-listener";
+        device = <&mouse_ps2>;
+    };
+};
+
+&pinctrl {
+    /* Receive PS/2 DATA on D4/P0.04 through UARTE at 14,400 baud. */
+    uart0_ps2_default: uart0_ps2_default {
+        group1 {
+            psels = <NRF_PSEL(UART_TX, 0, 27)>,
+                    <NRF_PSEL(UART_RX, 0, 4)>;
+        };
+    };
+
+    /* Release D4 while the driver bit-bangs host-to-device commands. */
+    uart0_ps2_off: uart0_ps2_off {
+        group1 {
+            psels = <NRF_PSEL(UART_TX, 0, 27)>,
+                    <NRF_PSEL(UART_RX, 0, 28)>;
+        };
+    };
+};
+
+&uart0 {
+    status = "okay";
+    compatible = "nordic,nrf-uarte";
+    current-speed = <14400>;
+    pinctrl-0 = <&uart0_ps2_default>;
+    pinctrl-1 = <&uart0_ps2_off>;
+    pinctrl-names = "default", "sleep";
+
+    uart_ps2: uart_ps2 {
+        compatible = "uart-ps2";
+        /* CLOCK = D5/P0.05; DATA = D4/P0.04. */
+        scl-gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
+        sda-gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>;
+    };
+};
+
+/* Give CLOCK edges priority over normal BLE controller work. */
+&gpiote {
+    interrupts = <6 0>;
+};

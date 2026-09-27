@@ -1,0 +1,13 @@
+measurement,expected_if_candidate_map_is_correct,measured_value,pass_or_notes
+contact 4 to known ground,near 0 ohm,,
+contact 2 to J7 positive terminal,near 0 ohm,,
+contact 1 to J7 opposite terminal,near 0 ohm,,
+contact 1 to contact 4,approximately 100 kOhm if onboard reset pull-down is populated,,
+contact 2 to contact 4,not a short,,
+contact 2 to contact 3,approximately 4.7 kOhm if CLOCK pull-up is onboard,18 MOhm,no passive CLOCK pull-up detected; powered prototype works without an added resistor
+contact 2 to contact 7,approximately 4.7 kOhm if DATA pull-up is onboard,,
+contact 3 to contact 4,not a hard short,,
+contact 7 to contact 4,not a hard short,,
+contact 5 to contact 4,not a hard short with no button attached,,
+contact 6 to contact 4,not a hard short with no button attached,,
+contact 8 to contact 4,not a hard short with no button attached,,

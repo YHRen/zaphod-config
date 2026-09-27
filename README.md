@@ -20,6 +20,18 @@ The generated firmware is copied to `~/Downloads/zaphod-zmk.uf2`. The first
 build downloads the ZMK toolchain and dependencies; later builds reuse the
 cached workspace. Set `ZAPHOD_FIRMWARE_OUTPUT` to use a different destination.
 
+To build the standalone XIAO nRF52840 TrackPoint bring-up image:
+
+```sh
+./build-trackpoint-test.sh
+```
+
+This produces `~/Downloads/xiao-trackpoint-test.uf2`. It has no keyboard or
+mouse-key input: it accepts PS/2 movement on D4/D5, drives the TrackPoint reset
+from D9, and exposes the pointer over both USB and Bluetooth. See
+[`docs/trackpoint/xiao-wiring.md`](docs/trackpoint/xiao-wiring.md) before
+applying power.
+
 ## Display
 
 The 144×168 display uses evenly distributed status, hostname, animation, and

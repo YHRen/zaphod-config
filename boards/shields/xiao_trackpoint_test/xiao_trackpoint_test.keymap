@@ -1,0 +1,17 @@
+/*
+ * Copyright (c) 2026 The Zaphod Contributors
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            /* The mock scanner never produces an event. No mouse keys exist. */
+            bindings = <&none>;
+        };
+    };
+};

@@ -1,0 +1,9 @@
+# Copyright (c) 2026 The Zaphod Contributors
+# SPDX-License-Identifier: MIT
+
+if SHIELD_XIAO_TRACKPOINT_TEST
+
+config ZMK_KEYBOARD_NAME
+    default "XIAO TrackPoint"
+
+endif

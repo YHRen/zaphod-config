@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="850" viewBox="0 0 1280 850">
+  <defs>
+    <style>
+      .title { font: 700 30px Arial, sans-serif; fill: #18222d; }
+      .sub { font: 17px Arial, sans-serif; fill: #536270; }
+      .head { font: 700 21px Arial, sans-serif; fill: #18222d; }
+      .label { font: 17px Arial, sans-serif; fill: #18222d; }
+      .small { font: 14px Arial, sans-serif; fill: #536270; }
+      .warn { font: 700 16px Arial, sans-serif; fill: #8a5700; }
+      .box { stroke: #263746; stroke-width: 2.5; rx: 14; }
+      .data { fill: none; stroke: #1967a3; stroke-width: 4; }
+      .clock { fill: none; stroke: #188263; stroke-width: 4; }
+      .p5 { fill: none; stroke: #c0392b; stroke-width: 4; }
+      .p3 { fill: none; stroke: #7d3c98; stroke-width: 4; }
+      .gnd { fill: none; stroke: #263746; stroke-width: 4; }
+      .nc { fill: none; stroke: #8a97a3; stroke-width: 2; stroke-dasharray: 8 7; }
+    </style>
+  </defs>
+  <rect width="1280" height="850" fill="#f7f9fb"/>
+  <text x="50" y="55" class="title">USB-powered XIAO + 13S5561 TrackPoint prototype</text>
+  <text x="50" y="87" class="sub">Assumes the documented T400/LVMV eight-contact pinout and onboard J7 reset network</text>
+
+  <rect x="50" y="135" width="285" height="485" class="box" fill="#e8f2fb"/>
+  <text x="78" y="176" class="head">XIAO nRF52840</text>
+  <text x="78" y="230" class="label">D4 / P0.04</text>
+  <text x="78" y="310" class="label">D5 / P0.05</text>
+  <text x="78" y="410" class="label">3V3</text>
+  <text x="78" y="490" class="label">5V / USB VBUS</text>
+  <text x="78" y="570" class="label">GND</text>
+  <text x="78" y="602" class="small">Power XIAO through USB-C</text>
+
+  <rect x="435" y="135" width="350" height="485" class="box" fill="#eef7e8"/>
+  <text x="463" y="176" class="head">2-channel BSS138 shifter</text>
+  <text x="463" y="207" class="small">Open-drain, bidirectional, pull-ups populated</text>
+  <rect x="500" y="240" width="220" height="58" rx="10" fill="#fff" stroke="#263746" stroke-width="2"/>
+  <text x="523" y="276" class="label">LV1 DATA ↔ HV1</text>
+  <rect x="500" y="320" width="220" height="58" rx="10" fill="#fff" stroke="#263746" stroke-width="2"/>
+  <text x="514" y="356" class="label">LV2 CLOCK ↔ HV2</text>
+  <text x="463" y="416" class="label">LV</text><text x="685" y="416" class="label">HV</text>
+  <text x="463" y="570" class="label">GND</text>
+
+  <rect x="895" y="135" width="335" height="485" class="box" fill="#fceeea"/>
+  <text x="923" y="176" class="head">TrackPoint contacts</text>
+  <text x="923" y="215" class="small">Numbered top-to-bottom in back photo</text>
+  <text x="923" y="258" class="label">7 - DATA</text>
+  <text x="923" y="338" class="label">3 - CLOCK</text>
+  <text x="923" y="418" class="label">2 - +5 V VCC</text>
+  <text x="923" y="498" class="label">4 - GND</text>
+  <text x="923" y="548" class="label">1 - RESET: NC</text>
+  <text x="923" y="580" class="small">5, 6, 8 buttons: NC</text>
+
+  <path d="M335 225 H500" class="data"/>
+  <path d="M720 269 H895 V253" class="data"/>
+  <text x="345" y="216" class="small">3.3 V DATA</text>
+  <text x="775" y="247" class="small">5 V DATA</text>
+
+  <path d="M335 305 H470 V349 H500" class="clock"/>
+  <path d="M720 349 H855 V333 H895" class="clock"/>
+  <text x="345" y="297" class="small">3.3 V CLOCK</text>
+  <text x="775" y="341" class="small">5 V CLOCK</text>
+
+  <path d="M335 405 H435" class="p3"/>
+  <path d="M785 405 H815" class="p5"/>
+  <path d="M335 485 H815 V413 H895" class="p5"/>
+  <text x="350" y="395" class="small">LV = 3.3 V</text>
+  <text x="765" y="397" class="small">HV = 5 V</text>
+
+  <path d="M335 565 H895 V493" class="gnd"/>
+  <path d="M435 565 H335" class="gnd"/>
+  <text x="595" y="557" class="small">Common ground</text>
+
+  <path d="M1075 545 H1180" class="nc"/>
+  <text x="1083" y="536" class="small">Leave open</text>
+
+  <rect x="50" y="675" width="1180" height="120" rx="12" fill="#fff8df" stroke="#aa7c00" stroke-width="2"/>
+  <text x="75" y="708" class="warn">Important</text>
+  <text x="75" y="739" class="label">Never connect TrackPoint DATA or CLOCK directly to the XIAO. Use USB power only for this test.</text>
+  <text x="75" y="770" class="label">Add 100 nF across TrackPoint contacts 2 and 4; optional 10 uF in parallel, positive to contact 2.</text>
+  <text x="75" y="812" class="small">The first firmware uses movement only. Physical button contacts 5, 6, and 8 remain disconnected.</text>
+</svg>

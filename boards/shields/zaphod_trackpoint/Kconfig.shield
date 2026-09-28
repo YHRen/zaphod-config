@@ -1,0 +1,5 @@
+# Copyright (c) 2026 The Zaphod Contributors
+# SPDX-License-Identifier: MIT
+
+config SHIELD_ZAPHOD_TRACKPOINT
+	def_bool $(shields_list_contains,zaphod_trackpoint)

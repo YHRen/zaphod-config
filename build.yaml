@@ -1,6 +1,9 @@
 ---
 include:
   - board: zaphod
+  - board: zaphod
+    shield: zaphod_trackpoint
+    artifact-name: zaphod-trackpoint
   - board: seeeduino_xiao_ble
     shield: xiao_trackpoint_test
     snippet: zmk-usb-logging

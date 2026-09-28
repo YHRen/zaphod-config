@@ -1,0 +1,67 @@
+/*
+ * Copyright (c) 2026 The Zaphod Contributors
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/pinctrl/nrf-pinctrl.h>
+
+&pinctrl {
+	/*
+	 * P1.10, P1.11, and P1.13 are three adjacent, unconnected edge pads on
+	 * the Holyiot 18010 module. The Sharp display remains on P0.04/P0.05/P0.07.
+	 */
+	uart0_ps2_default: uart0_ps2_default {
+		group1 {
+			psels = <NRF_PSEL(UART_TX, 0, 27)>,
+				<NRF_PSEL(UART_RX, 1, 10)>;
+		};
+	};
+
+	/* Release DATA while the driver bit-bangs host-to-device commands. */
+	uart0_ps2_off: uart0_ps2_off {
+		group1 {
+			psels = <NRF_PSEL(UART_TX, 0, 27)>,
+				<NRF_PSEL(UART_RX, 0, 26)>;
+		};
+	};
+};
+
+/ {
+	mouse_ps2: mouse_ps2 {
+		compatible = "zmk,input-mouse-ps2";
+		ps2-device = <&uart_ps2>;
+
+		/* Holyiot edge pad 4. */
+		rst-gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>;
+
+		/* Keep the first keyboard integration movement-only. */
+		disable-clicking;
+	};
+
+	trackpoint_listener: trackpoint_listener {
+		compatible = "zmk,input-listener";
+		device = <&mouse_ps2>;
+	};
+};
+
+&uart0 {
+	status = "okay";
+	compatible = "nordic,nrf-uarte";
+	current-speed = <14400>;
+	pinctrl-0 = <&uart0_ps2_default>;
+	pinctrl-1 = <&uart0_ps2_off>;
+	pinctrl-names = "default", "sleep";
+
+	uart_ps2: uart_ps2 {
+		compatible = "uart-ps2";
+		/* CLOCK = Holyiot pad 2; DATA = Holyiot pad 3. */
+		scl-gpios = <&gpio1 11 GPIO_ACTIVE_HIGH>;
+		sda-gpios = <&gpio1 10 GPIO_ACTIVE_HIGH>;
+	};
+};
+
+/* PS/2 clock edges must preempt normal BLE controller work. */
+&gpiote {
+	interrupts = <6 0>;
+};

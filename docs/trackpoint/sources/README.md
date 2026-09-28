@@ -9,6 +9,18 @@ detected.
 
 ## Local documents
 
+### `holyiot-18010-nrf52840-datasheet.pdf`
+
+- Title: *Holyiot-18010-NRF52840 Datasheet*, version 1.
+- Publisher: Shenzhen Holyiot Technology Co., Ltd., issued 2018-01-01.
+- Retrieved from the Robu distributor mirror:
+  <https://robu-prod-media.s3.ap-south-1.amazonaws.com/uploads/2025/04/R228997-18010-nRF52840-datasheet.pdf>
+- Relevant content: module dimensions, pad locations, complete pin assignment,
+  PCB mounting guidance, and absolute maximum ratings.
+- The embedded PDF metadata says `MDBT50Q-U1M_Version B` and names Raytac as
+  author, but the visible cover and document pages consistently identify
+  Shenzhen Holyiot and model `Holyiot-18010-NRF52840`.
+
 ### `zaphod-v1-schematic.pdf`
 
 - Title: The Zaphod, schematic revision v0.1.2.

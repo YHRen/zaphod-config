@@ -4,7 +4,7 @@ Zaphod is a 34-key keyboard configuration for [ZMK v0.3](https://zmk.dev/).
 
 ## Firmware builds
 
-GitHub Actions builds the `zaphod` firmware from [`build.yaml`](build.yaml).
+GitHub Actions builds the keyboard and TrackPoint targets from [`build.yaml`](build.yaml).
 
 Download the generated UF2 files from the `firmware` artifact attached to a
 successful workflow run. The ZMK version is pinned in
@@ -38,6 +38,20 @@ Actions publishes it as `zaphod-trackpoint`. It uses three unused adjacent
 Holyiot edge pads for CLOCK, DATA, and RESET; see
 [`docs/trackpoint/zaphod-integration.md`](docs/trackpoint/zaphod-integration.md)
 for the exact wiring and bring-up sequence.
+
+For a TrackPoint connected **in place of the Sharp display**, use the separate
+`zaphod_trackpoint_display_replacement` shield:
+
+```sh
+./build-display-replacement.sh
+./build-display-replacement.sh zaphod-trackpoint-display-replacement --diagnostic
+```
+
+This pipeline uses an isolated dependency cache and verifies a pinned PS/2
+transport patch. See the [replacement firmware guide](docs/trackpoint/replacement-firmware.md)
+for J1 wiring, artifacts, regression builds and hardware bring-up. The image
+has passed software validation; Zaphod hardware testing remains outstanding.
+Select only one TrackPoint shield.
 
 ## Display
 

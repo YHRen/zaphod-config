@@ -8,3 +8,6 @@ include:
     shield: xiao_trackpoint_test
     snippet: zmk-usb-logging
     artifact-name: xiao-trackpoint-test
+  - board: zaphod
+    shield: zaphod_trackpoint_display_replacement
+    artifact-name: zaphod-trackpoint-display-replacement

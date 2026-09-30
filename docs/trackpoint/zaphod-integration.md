@@ -13,7 +13,7 @@ display's SPI signals.
 | TrackPoint DATA / UARTE RX | P1.10 | 3 | Unconnected |
 | TrackPoint RESET | P1.13 | 4 | Unconnected |
 | TrackPoint VCC | VCC / 3.3 V | - | Display connector J1 pad 8 or another regulated VCC point |
-| TrackPoint GND | GND | - | Display connector J1 pad 3 or another ground point |
+| TrackPoint GND | GND | - | Display connector J1 pad 7 or another ground point |
 
 The three signal pads sit next to one another on the module edge. This is more
 practical for a hand-wired prototype than P1.12 and P1.14, which are module

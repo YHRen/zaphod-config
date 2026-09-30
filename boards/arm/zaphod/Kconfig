@@ -30,6 +30,7 @@ config ZAPHOD_HOSTNAME_4
 
 menuconfig ZAPHOD_BONGO_CAT
     bool "Show WPM bongo cat"
+    default y
     select ZMK_WPM
     select LV_USE_IMG
     select LV_USE_ANIMATION

@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: MIT
+
+config SHIELD_ZAPHOD_TRACKPOINT_DISPLAY_REPLACEMENT
+    def_bool $(shields_list_contains,zaphod_trackpoint_display_replacement)

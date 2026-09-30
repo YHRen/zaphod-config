@@ -1,0 +1,2 @@
+# Preserve the whitespace required by unified patch syntax.
+patches/*.patch -whitespace

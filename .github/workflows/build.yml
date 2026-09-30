@@ -1,5 +1,84 @@
+name: Build firmware
 on: [push, pull_request, workflow_dispatch]
 
+permissions:
+  contents: read
+
 jobs:
+  matrix:
+    runs-on: ubuntu-latest
+    container: zmkfirmware/zmk-build-arm:stable
+    outputs:
+      targets: ${{ steps.targets.outputs.targets }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: targets
+        name: Read build targets
+        run: |
+          python3 - <<'PY'
+          import json, os, yaml
+          entries = yaml.safe_load(open('build.yaml'))['include']
+          targets = [entry.get('artifact-name', entry['board']) for entry in entries]
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('targets=' + json.dumps(targets) + '\n')
+          PY
+
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3
+    needs: matrix
+    runs-on: ubuntu-latest
+    container: zmkfirmware/zmk-build-arm:stable
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ${{ fromJson(needs.matrix.outputs.targets) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Populate isolated west workspace
+        run: |
+          mkdir -p /tmp/zaphod-build/config
+          cp -R config/. /tmp/zaphod-build/config/
+          cd /tmp/zaphod-build
+          west init -l config
+          west update --fetch-opt=--filter=tree:0
+      - name: Verify and apply pinned PS/2 patch
+        run: python3 scripts/prepare-ps2-driver.py /tmp/zaphod-build/kb_zmk_ps2_mouse_trackpoint_driver
+      - name: Test PS/2 command and receive contracts
+        if: matrix.target == 'zaphod-trackpoint-display-replacement'
+        run: python3 scripts/test-ps2-driver.py /tmp/zaphod-build/kb_zmk_ps2_mouse_trackpoint_driver
+      - name: Build and inspect generated firmware
+        env:
+          TARGET: ${{ matrix.target }}
+        run: python3 scripts/build-firmware.py --workspace /tmp/zaphod-build --target "$TARGET"
+      - name: Reject incompatible shield combinations
+        if: matrix.target == 'zaphod-trackpoint-display-replacement'
+        run: python3 scripts/build-firmware.py --workspace /tmp/zaphod-build --check-shield-conflict
+      - name: Assertion-enabled USB diagnostic build
+        if: matrix.target == 'zaphod-trackpoint-display-replacement'
+        run: python3 scripts/build-firmware.py --workspace /tmp/zaphod-build --target zaphod-trackpoint-display-replacement --diagnostic
+      - name: Upload firmware and provenance
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact-${{ matrix.target }}
+          path: /tmp/zaphod-build/artifacts/
+          include-hidden-files: true
+      - name: Upload build evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failed-build-${{ matrix.target }}
+          path: |
+            /tmp/zaphod-build/build/**/zephyr/.config
+            /tmp/zaphod-build/build/**/zephyr/zephyr.dts*
+            /tmp/zaphod-build/build/**/CMakeFiles/CMakeConfigureLog.yaml
+            /tmp/zaphod-build/logs/*.log
+          include-hidden-files: true
+  merge:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/upload-artifact/merge@v4
+        with:
+          name: firmware
+          pattern: artifact-*
+          separate-directories: true
+          delete-merged: true

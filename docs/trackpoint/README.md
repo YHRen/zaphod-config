@@ -33,6 +33,14 @@ firmware does not deliberately enable internal pull-ups, so a future PCB should
 retain optional pull-up footprints even though they are not populated in the
 verified prototype.
 
+## Zaphod firmware integration
+
+The [display-replacement firmware](replacement-firmware.md) is implemented and
+software-tested. Its [design plan](display-replacement-plan.md) records the
+hardware mapping and measurement gates. Zaphod hardware bring-up remains
+outstanding. The [spare-pad option](zaphod-integration.md) retains the display;
+the two firmware shields and harnesses are mutually exclusive.
+
 ## Contents
 
 - [research-summary.md](research-summary.md) - consolidated findings and
@@ -71,4 +79,4 @@ verified prototype.
 3. Measure TrackPoint current during idle and sustained movement.
 4. Run longer BLE stability and cold-start tests before migrating to Zaphod.
 
-Last consolidated: 2026-09-27.
+Last consolidated: 2026-09-30; XIAO hardware results remain dated 2026-09-27.

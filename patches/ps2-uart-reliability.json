@@ -1,0 +1,15 @@
+{
+  "revision": "f6f3b30677caeccc4970bb48f48240d3504d03f7",
+  "patch": "ps2-uart-reliability.patch",
+  "sha256": "0a8dc1f48a64571f81bb3dc26c90a63134a02fc31908827ca452441973ec36e7",
+  "files": {
+    "src/drivers/ps2/ps2_uart.c": {
+      "before": "f39c3c20d5dca6aacbe92f2898b76172c0f890faf6ecef7e993c61e4d87f81b4",
+      "after": "2cb564bfaea1ff3f740d5be413a76c7febfc039152cb7ebbbfb3cf9de3faf57c"
+    },
+    "src/drivers/ps2/Kconfig.uart": {
+      "before": "82082c8513084cf4709c0b1f78c3ccf997ca0f1888b6e08ee3695417b248f23b",
+      "after": "2467aa8f5348f1f6c7d29a3d8d638dfd218cb7f683b5846352f373d23bda96f9"
+    }
+  }
+}
